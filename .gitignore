@@ -1,0 +1,5 @@
+*.pyc
+piw2.py
+bash/
+.passkeys
+.ignore
