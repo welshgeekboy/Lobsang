@@ -1,0 +1,9 @@
+Tue Apr  5 14:27:24 2016 --> [BEGIN] New log file started. To review old log files, see ./archive/
+Tue Apr  5 14:27:46 2016 --> [ LOG ] Lobsang.begin() called.
+Tue Apr  5 14:27:47 2016 --> [WARN ] Duino did not respond to 'OK?' query. Resetting...
+Tue Apr  5 14:27:48 2016 --> [ LOG ] Duino responded to 'OK?' query. Duino Online.
+Tue Apr  5 14:40:04 2016 --> [ LOG ] Lobsang.begin() called.
+Tue Apr  5 14:40:05 2016 --> [WARN ] Duino did not respond to 'OK?' query. Resetting...
+Tue Apr  5 14:40:06 2016 --> [ LOG ] Duino responded to 'OK?' query. Duino Online.
+Tue Apr  5 14:44:42 2016 --> [ LOG ] Halting Lobsang. Raspbian is shutting down.
+Tue Apr  5 14:44:42 2016 --> [ END ] This log file was archived. A new log file is used instead.

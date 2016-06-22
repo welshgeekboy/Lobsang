@@ -1,0 +1,7 @@
+Wed Nov 25 01:55:06 2015 --> [BEGIN] New log file started. To review old log files, see ./archive/
+Wed Nov 25 02:12:42 2015 --> [ LOG ] Lobsang.begin() called.
+Wed Nov 25 02:12:42 2015 --> [ LOG ] Duino responded to 'OK?' query. Duino Online.
+Wed Nov 25 02:14:43 2015 --> [ LOG ] Lobsang.begin() called.
+Wed Nov 25 02:14:44 2015 --> [ LOG ] Duino responded to 'OK?' query. Duino Online.
+Wed Nov 25 02:06:17 2015 --> [ LOG ] Halting Lobsang. Raspbian is shutting down.
+Wed Nov 25 02:06:17 2015 --> [ END ] This log file was archived. A new log file is used instead.

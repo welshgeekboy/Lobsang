@@ -1,0 +1,27 @@
+Tue Apr  5 15:08:58 2016 --> [BEGIN] New log file started. To review old log files, see ./archive/
+Tue Apr  5 15:09:23 2016 --> [ LOG ] Lobsang.begin() called.
+Tue Apr  5 15:09:24 2016 --> [WARN ] Duino did not respond to 'OK?' query. Resetting...
+Tue Apr  5 15:09:25 2016 --> [ LOG ] Duino responded to 'OK?' query. Duino Online.
+Tue Apr  5 15:17:23 2016 --> [ LOG ] Lobsang.begin() called.
+Tue Apr  5 15:17:24 2016 --> [WARN ] Duino did not respond to 'OK?' query. Resetting...
+Tue Apr  5 15:17:25 2016 --> [ LOG ] Duino responded to 'OK?' query. Duino Online.
+Tue Apr  5 16:03:50 2016 --> [ LOG ] Lobsang.begin() called.
+Tue Apr  5 16:03:50 2016 --> [ LOG ] Duino responded to 'OK?' query. Duino Online.
+Tue Apr  5 16:03:51 2016 --> [ LOG ] Lobsang.begin() called.
+Tue Apr  5 16:03:51 2016 --> [ LOG ] Duino responded to 'OK?' query. Duino Online.
+Tue Apr  5 16:04:43 2016 --> [ LOG ] Lobsang.begin() called.
+Tue Apr  5 16:04:43 2016 --> [ LOG ] Duino responded to 'OK?' query. Duino Online.
+Tue Apr  5 16:04:44 2016 --> [ LOG ] Lobsang.begin() called.
+Tue Apr  5 16:04:44 2016 --> [ LOG ] Duino responded to 'OK?' query. Duino Online.
+Tue Apr  5 16:05:12 2016 --> [ LOG ] Lobsang.begin() called.
+Tue Apr  5 16:05:13 2016 --> [ LOG ] Duino responded to 'OK?' query. Duino Online.
+Tue Apr  5 16:05:14 2016 --> [ LOG ] Lobsang.begin() called.
+Tue Apr  5 16:05:14 2016 --> [ LOG ] Duino responded to 'OK?' query. Duino Online.
+Tue Apr  5 16:11:09 2016 --> [ LOG ] Lobsang.begin() called.
+Tue Apr  5 16:11:09 2016 --> [ LOG ] Duino responded to 'OK?' query. Duino Online.
+Tue Apr  5 16:11:10 2016 --> [ LOG ] Lobsang.begin() called.
+Tue Apr  5 16:11:10 2016 --> [ LOG ] Duino responded to 'OK?' query. Duino Online.
+Tue Apr  5 16:16:38 2016 --> [ LOG ] Lobsang.begin() called.
+Tue Apr  5 16:16:38 2016 --> [ LOG ] Duino responded to 'OK?' query. Duino Online.
+Tue Apr  5 16:36:57 2016 --> [ LOG ] Halting Lobsang. Raspbian is shutting down.
+Tue Apr  5 16:36:57 2016 --> [ END ] This log file was archived. A new log file is used instead.

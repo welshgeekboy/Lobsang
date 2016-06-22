@@ -1,0 +1,21 @@
+Wed Nov 25 00:13:58 2015 --> [BEGIN] New log file started. To review old log files, see ./archive/
+Wed Nov 25 00:17:01 2015 --> [ LOG ] Lobsang.begin() called.
+Wed Nov 25 00:17:01 2015 --> [ LOG ] Duino responded to 'OK?' query. Duino Online.
+Wed Nov 25 00:17:42 2015 --> [ LOG ] Lobsang.begin() called.
+Wed Nov 25 00:17:42 2015 --> [ LOG ] Duino responded to 'OK?' query. Duino Online.
+Wed Nov 25 00:19:12 2015 --> [ LOG ] Lobsang.begin() called.
+Wed Nov 25 00:19:12 2015 --> [ LOG ] Duino responded to 'OK?' query. Duino Online.
+Wed Nov 25 00:19:44 2015 --> [ LOG ] Lobsang.begin() called.
+Wed Nov 25 00:19:44 2015 --> [ LOG ] Duino responded to 'OK?' query. Duino Online.
+Wed Nov 25 00:21:13 2015 --> [ LOG ] Lobsang.begin() called.
+Wed Nov 25 00:21:13 2015 --> [ LOG ] Duino responded to 'OK?' query. Duino Online.
+Wed Nov 25 00:22:10 2015 --> [ LOG ] Lobsang.begin() called.
+Wed Nov 25 00:22:10 2015 --> [ LOG ] Duino responded to 'OK?' query. Duino Online.
+Wed Nov 25 00:23:06 2015 --> [ LOG ] Lobsang.begin() called.
+Wed Nov 25 00:23:06 2015 --> [ LOG ] Duino responded to 'OK?' query. Duino Online.
+Wed Nov 25 00:22:59 2015 --> [ LOG ] Lobsang.begin() called.
+Wed Nov 25 00:22:59 2015 --> [ LOG ] Duino responded to 'OK?' query. Duino Online.
+Wed Nov 25 00:28:46 2015 --> [ LOG ] Lobsang.begin() called.
+Wed Nov 25 00:28:47 2015 --> [ LOG ] Duino responded to 'OK?' query. Duino Online.
+Wed Nov 25 00:30:28 2015 --> [ LOG ] Halting Lobsang. Raspbian is shutting down.
+Wed Nov 25 00:30:28 2015 --> [ END ] This log file was archived. A new log file is used instead.

@@ -1,0 +1,8 @@
+#!/bin/bash
+
+echo "Lobsang will get ready for bed."
+cd /home/pi/lobsang/
+sudo python -c "import Lobsang; Lobsang.quit(False)"
+backup
+sudo python -c "import Lobsang; Lobsang.halt()"
+exit 0
