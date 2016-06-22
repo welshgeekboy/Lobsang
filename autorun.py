@@ -12,7 +12,7 @@
 # boot on tty1 at boot completion edit /etc/rc.local
 # and comment out the  correct line near the bottom.
 #
-# Created Nov 2015 by Finley Watson
+# Created Jun 2016 by Finley Watson
 
 print "Auto Run: Initialising."
 
@@ -51,10 +51,10 @@ if boot_errors > 0: # There ARE errors to be handled.
 	if boot_errors == 16: # 'No GPIO access' code.
 		print "Auto Run: No GPIO access."
 		sys.exit()
-	if boot_errors >= 4: # > 4 == 'camera offline'.
+	if boot_errors >= 4: # >= 4 == 'camera offline'.
 		boot_errors -= 4 # Remove 'camera offline' code.
 		camera_online = False
-	if boot_errors >= 2: # > 2 == 'oled_offline'.
+	if boot_errors >= 2: # >= 2 == 'oled_offline'.
 		boot_errors -= 2 # Remove 'oled offline' code.
 		oled_online = False
 	if boot_errors >= 1: # >= 1 == 'duino offline' code.
@@ -69,7 +69,7 @@ if duino_online:
 		Oled.refresh()
 		Oled.command(Oled.on)
 	print "Auto Run: Success! System is stable."
-	os.system("sudo python piwars_menu.py")
+	os.system("sudo python menu.py")
 
 else: # Duino is offline.
 	print "Auto Run: Cannot boot Lobsang!"

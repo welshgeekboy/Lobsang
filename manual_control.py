@@ -21,7 +21,6 @@ from pygame.locals import *
 # Give feedback on the oled.
 Lobsang.oled.write("Starting Manual Control.")
 Lobsang.oled.refresh()
-Lobsang.begin(splashscreen=False)
 
 # All the variables needed.
 loops_per_second = 50

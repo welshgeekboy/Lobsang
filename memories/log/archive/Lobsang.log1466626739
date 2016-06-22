@@ -1,0 +1,6 @@
+Wed Jun 22 20:11:09 2016 --> [BEGIN] New log file started. To review old log files, see ./archive/
+Wed Jun 22 20:11:31 2016 --> [ LOG ] Lobsang.begin() called.
+Wed Jun 22 20:11:32 2016 --> [WARN ] Duino did not respond to 'OK?' query. Resetting...
+Wed Jun 22 20:11:33 2016 --> [ LOG ] Duino responded to 'OK?' query. Duino Online.
+Wed Jun 22 20:18:59 2016 --> [ LOG ] Halting Lobsang. Raspbian is shutting down.
+Wed Jun 22 20:18:59 2016 --> [ END ] This log file was archived. A new log file is used instead.
