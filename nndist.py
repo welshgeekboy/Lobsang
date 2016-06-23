@@ -19,11 +19,11 @@ ds.addSample((10,), (6, 6))'''
 ds = SupervisedDataSet(1, 1)
 ds.loadFromFile("nndist.ds")
 
-ds.addSample((2,), (-9,))
-ds.addSample((4,), (-6,))
-ds.addSample((6,),  (6,))
-ds.addSample((8,),  (9,))
-ds.addSample((10,), (12,))
+ds.addSample((2,), (-6,))
+ds.addSample((4,), (-4,))
+ds.addSample((6,),  (2,))
+ds.addSample((8,),  (4,))
+ds.addSample((10,), (6,))
 
 net = buildNetwork(1, 5, 1, bias=True, hiddenclass=TanhLayer)
 trainer = BackpropTrainer(net, ds)

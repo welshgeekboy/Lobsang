@@ -10,25 +10,26 @@ sudo apt-get update
 sudo apt-get dist-upgrade
 
 # Save old /boot/config.txt file and write to a new one
-sudo mv /boot/config.txt ~/lobsang_build_saves/config.txt.bkp
+sudo mv /boot/config.txt ~/lobsang_build_saves/config.txt
 sudo echo -e "hdmi_ignore_edid=0xa5000080\r\nhdmi_group=2\r\nhdmi_mode=28\r\nstart_x=0\r\ngpu_mem=64\r\ndtparam=spi=on\r\ndtparam=i2c=on\r\ndtparam=i2c_arm=on" > /boot/config.txt
 
-# Replace this line in /etc/inittab
-
-#NEEDS MORE WORK
-
+# Comment out a line in /etc/inittab and add a different one just below
 sudo cp /etc/inittab ~/lobsang_build_saves/inittab.bkp
-sudo sed -i s/1:2345:respawn:/sbin/getty --noclear 38400 tty1/
-1:2345:/sbin/login -f pi </dev/tty1 >/dev/tty1 2>&1
+sudo sed -i s[1:2345:respawn:/sbin/getty --noclear 38400 tty1[#1:2345:respawn:/sbin/getty --noclear 38400\r\n1:2345:/sbin/login -f pi </dev/tty1 >/dev/tty1 2>&1[
 
-# Added this to the end of the single line in /boot/cmdline.txt
-usbhid.mousepoll=0
+# Get user to add this to the end of the single line in /boot/cmdline.txt
+sudo cp /boot/cmdline.txt ~/lobsang_build_saves/cmdline.txt
+echo "#Please delete this message and add this to the end of the line above: usbhid.mousepoll=0" >> /boot/cmdline.txt
 
 # Installed Adafruit_GPIO program from GitHub
+# TODO: get command required
 
 # Installed Setup Tools (for setup.py) from ez_setup.py included with Adafruit_GPIO
+# TODO: get command required
 
 # Ran setup.py included with Adafruit_GPIO to install Adafruit_GPIO
+# TODO: get command required (cd to where?)
+sudo python setup.py install
 
 # Installed multiple packages for Python Imaging to work
 sudo apt-get install libjpeg8 libjpeg8-dev libfreetype6 libfreetype6-dev zlib1g-dev
@@ -37,13 +38,13 @@ sudo apt-get install python-imaging
 # Installed the Arduino IDE
 sudo apt-get install arduino
 
-# Downloaded Gordon's version of avrdude for the Gertboard and RasPiO Duino and replaced Arduino's avrdude with his
+# Downloaded Gordons version of avrdude for the Gertboard and RasPiO Duino and replaced Arduinos avrdude with his
 cd /tmp
 wget http://project-downloads.drogon.net/gertboard/avrdude_5.10-4_armhf.deb
 sudo dpkg -i avrdude_5.10-4_armhf.deb
 sudo chmod 4755 /usr/bin/avrdude
 
-# Downloaded the setup script for installing Gordon's avrdude and auto-edited system files to work with new avrdude
+# Downloaded the setup script for installing Gordons avrdude and auto-edited system files to work with new avrdude
 cd /tmp
 wget http://project-downloads.drogon.net/gertboard/setup.sh
 chmod +x setup.sh

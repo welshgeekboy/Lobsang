@@ -37,8 +37,9 @@ menu_position = 0 # Oled menu position (0 - 3)
 menu_options = ["1:                            Line follower",
 		"2:                       Manual control",
 		"3:                          Proximity test",
-		"4:                      Backup all files",
-		"5:              Shutdown Lobsang",
+		"4:          'Dist' neural network",
+		"5:                      Backup all files",
+		"6:              Shutdown Lobsang",
 		"ESC:                               Exit Menu"]
 
 # Set up pygame 200 x 100 px, but size does not matter as nothing is diplayed on the screen.
