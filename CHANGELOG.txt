@@ -1,6 +1,0 @@
-26th Jun 2016:
-Began changelog for Lobsang code.
-Previously, started work on Lobsang in general again. There was a large break since last December. Greatly improved obstacle.py, which attempts to avoid obstacles and drive forward as much as it can. This now works relatively well.
-Began work on neural network- using PyBrain library. Very tentative steps right now. nndist.py learns to stay ~50cm from obstacle using ultrasonic. Neural network is trained to drive forward or back depending on the distance in cm that the ultrasonic reads.
-Created menu.py- clone of piwars_menu.py but it only includes non piwars-specific programs. This is now the standard menu that loads when the Pi boots.
-
