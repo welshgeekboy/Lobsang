@@ -17,7 +17,7 @@ ds.addSample((8,), (4, 4))
 ds.addSample((10,), (6, 6))'''
 
 ds = SupervisedDataSet(1, 1)
-ds.loadFromFile("nndist_ds.DS")
+ds.loadFromFile("nndist.ds")
 
 ds.addSample((2,), (-9,))
 ds.addSample((4,), (-6,))
@@ -62,6 +62,6 @@ except Exception as e:
 	Lobsang.quit()
 	print e
 	print "Halted after", loop_count, "loops and", train_count, "trainings."
-	ds.saveToFile("nndist_ds.DS")
+	ds.saveToFile("nndist.ds")
 else:
 	Lobsang.quit()

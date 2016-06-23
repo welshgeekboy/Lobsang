@@ -1,0 +1,66 @@
+#!/bin/bash
+# HISTORY OF WHAT I DID TO CREATE LOBSANG SD CARD FROM GENERIC RASPBIAN IMAGE
+
+# In a terminal emulator etc.
+
+
+sudo apt-get update
+sudo apt-get dist-upgrade
+
+# Save old /boot/config.txt file and write to a new one
+sudo mv /boot/config.txt /boot/config.txt.bkp
+sudo echo -e "hdmi_ignore_edid=0xa5000080\r\nhdmi_group=2\r\nhdmi_mode=28\r\nstart_x=0\r\ngpu_mem=64\r\ndtparam=spi=on\r\ndtparam=i2c=on\r\ndtparam=i2c_arm=on" > /boot/config.txt
+
+# Commented out this line in /etc/inittab
+sudo cp /etc/inittab /home/pi/lobsang_build_saves/inittab.bkp
+sudo sed 1:2345:respawn:/sbin/getty --noclear 38400 tty1
+
+# Added this line to /etc/inittab below the above -^ commented out line
+1:2345:/sbin/login -f pi </dev/tty1 >/dev/tty1 2>&1
+
+# Added this to the end of the single line in /boot/cmdline.txt
+usbhid.mousepoll=0
+
+# Installed Adafruit_GPIO program from GitHub
+
+# Installed Setup Tools (for setup.py) from ez_setup.py included with Adafruit_GPIO
+
+# Ran setup.py included with Adafruit_GPIO to install Adafruit_GPIO
+
+# Installed multiple packages for Python Imaging to work
+sudo apt-get install libjpeg8 libjpeg8-dev libfreetype6 libfreetype6-dev zlib1g-dev
+sudo apt-get install python-imaging
+
+# Installed the Arduino IDE
+sudo apt-get install arduino
+
+# Downloaded Gordon's version of avrdude for the Gertboard and RasPiO Duino and replaced Arduino's avrdude with his
+cd /tmp
+wget http://project-downloads.drogon.net/gertboard/avrdude_5.10-4_armhf.deb
+sudo dpkg -i avrdude_5.10-4_armhf.deb
+sudo chmod 4755 /usr/bin/avrdude
+
+# Downloaded the setup script for installing Gordon's avrdude and auto-edited system files to work with new avrdude
+cd /tmp
+wget http://project-downloads.drogon.net/gertboard/setup.sh
+chmod +x setup.sh
+sudo ./setup.sh
+
+# To change the pins the Pi uses for SPI, edit /etc/avrdude.conf
+# Currently, pin 8 -> RESET
+#            pin 9 -> MISO
+#           pin 10 -> MOSI
+#           pin 11 -> SLCK
+
+# Installed espeak and flite (both Text to Speech programs)
+sudo apt-get install espeak
+sudo apt-get install flite
+
+# Installed what I *think* is required for OpenCV to run with Python
+sudo apt-get install python-opencv
+
+# Added Lobsang's voice file to dir /usr/lib/arm-linux-gnueabihf/espeak-data/voices/en/
+
+echo -e "name lobsangian\r\nlanguage en-gb\r\nlanguage en 4\r\ngender male\r\nphonemes en\r\npitch 150 190" > /usr/lib/arm-linux-gnueabihf/espeak-data/voices/en/lobsang
+
+

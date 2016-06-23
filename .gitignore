@@ -1,5 +1,14 @@
 *.pyc
-piw2.py
-bash/
+
 .passkeys
 .ignore
+
+drag_race.py
+manual_control.py
+piw2.py
+piwars_menu.py
+skittles_challenge.py
+three_point_turn.py
+
+bash/
+memories/log/archive/
