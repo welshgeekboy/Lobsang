@@ -1,21 +1,24 @@
 #!/bin/bash
-# HISTORY OF WHAT I DID TO CREATE LOBSANG SD CARD FROM GENERIC RASPBIAN IMAGE
+# HISTORY OF WHAT I DID TO CREATE LOBSANG SD CARD FROM GENERIC RASPBIAN WHEEZY IMAGE
+# This file can be run in the terminal to do it all for you!
+#
+# sudo bash ./build_history
 
-# In a terminal emulator etc.
-
+mkdir ~/lobsang_build_saves
 
 sudo apt-get update
 sudo apt-get dist-upgrade
 
 # Save old /boot/config.txt file and write to a new one
-sudo mv /boot/config.txt /boot/config.txt.bkp
+sudo mv /boot/config.txt ~/lobsang_build_saves/config.txt.bkp
 sudo echo -e "hdmi_ignore_edid=0xa5000080\r\nhdmi_group=2\r\nhdmi_mode=28\r\nstart_x=0\r\ngpu_mem=64\r\ndtparam=spi=on\r\ndtparam=i2c=on\r\ndtparam=i2c_arm=on" > /boot/config.txt
 
-# Commented out this line in /etc/inittab
-sudo cp /etc/inittab /home/pi/lobsang_build_saves/inittab.bkp
-sudo sed 1:2345:respawn:/sbin/getty --noclear 38400 tty1
+# Replace this line in /etc/inittab
 
-# Added this line to /etc/inittab below the above -^ commented out line
+#NEEDS MORE WORK
+
+sudo cp /etc/inittab ~/lobsang_build_saves/inittab.bkp
+sudo sed -i s/1:2345:respawn:/sbin/getty --noclear 38400 tty1/
 1:2345:/sbin/login -f pi </dev/tty1 >/dev/tty1 2>&1
 
 # Added this to the end of the single line in /boot/cmdline.txt
