@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Shut down Lobsang through the robot
+# way.  It does use  'sudo halt'  but
+# there is a bit more to it than that
+# such as archiving the  logfile etc.
+#
+# Created Dec 2015 by Finley Watson.
+
+echo "Lobsang will now go to sleep. Sweet dreams, little one!"
+cd /home/pi/lobsang/
+sudo python -c "import Lobsang; Lobsang.halt()"
+exit 0

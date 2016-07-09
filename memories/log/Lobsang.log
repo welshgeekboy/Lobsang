@@ -1,4 +1,12 @@
-Thu Jun 23 01:24:22 2016 --> [BEGIN] New log file started. To review old log files, see ./archive/
-Thu Jun 23 01:24:46 2016 --> [ LOG ] Lobsang.begin() called.
-Thu Jun 23 01:24:47 2016 --> [WARN ] Duino did not respond to 'OK?' query. Resetting...
-Thu Jun 23 01:24:48 2016 --> [ LOG ] Duino responded to 'OK?' query. Duino Online.
+Wed Jun 29 09:48:17 2016 --> [BEGIN] New log file started. To review old log files, see ./archive/
+Wed Jun 29 09:48:41 2016 --> [ LOG ] Lobsang.begin() called.
+Wed Jun 29 09:48:42 2016 --> [WARN ] Duino did not respond to 'OK?' query. Resetting...
+Wed Jun 29 09:48:43 2016 --> [ LOG ] Duino responded to 'OK?' query. Duino Online.
+Wed Jun 29 11:03:34 2016 --> [ LOG ] Lobsang.begin() called.
+Wed Jun 29 11:03:35 2016 --> [WARN ] Duino did not respond to 'OK?' query. Resetting...
+Wed Jun 29 11:03:36 2016 --> [ LOG ] Duino responded to 'OK?' query. Duino Online.
+Sat Jul  9 21:30:19 2016 --> [ LOG ] Lobsang.begin() called.
+Sat Jul  9 21:30:19 2016 --> [ LOG ] Duino responded to 'OK?' query. Duino Online.
+Sat Jul  9 22:16:06 2016 --> [ LOG ] Lobsang.begin() called.
+Sat Jul  9 22:16:08 2016 --> [WARN ] Duino did not respond to 'OK?' query. Resetting...
+Sat Jul  9 22:16:09 2016 --> [ LOG ] Duino responded to 'OK?' query. Duino Online.

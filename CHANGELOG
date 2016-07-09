@@ -4,3 +4,6 @@ Previously, started work on Lobsang in general again. There was a large break si
 Began work on neural network- using PyBrain library. Very tentative steps right now. nndist.py learns to stay ~50cm from obstacle using ultrasonic. Neural network is trained to drive forward or back depending on the distance in cm that the ultrasonic reads.
 Created menu.py- clone of piwars_menu.py but it only includes non piwars-specific programs. This is now the standard menu that loads when the Pi boots.
 
+09th Jul 2016:
+Overhauled design of backup script. Before, the user ran the backup script which waited 10s to give you time to swap the keyboard dongle for the USB drive. Then the backup script would blindly attempt to copy files across to the drive. Now, the backup script is linked to udev so when the USB drive is hotplugged udev runs the backup script automatically and copies all the files across without needing human input. Plug the stick in, wait for the copy to complete, then unplug the stick. Easy.
+

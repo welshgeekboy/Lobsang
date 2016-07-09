@@ -1,7 +1,6 @@
 *.pyc
 
 .passkeys
-.ignore
 
 drag_race.py
 manual_control.py
@@ -10,5 +9,4 @@ piwars_menu.py
 skittles_challenge.py
 three_point_turn.py
 
-bash/
 memories/log/archive/

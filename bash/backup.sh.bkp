@@ -1,0 +1,96 @@
+#!/bin/bash
+#
+# backup(.sh)-  will mount,  copy  data
+# to, then unmount my USB stick. As the
+# Pi A+ has only one USB port, it makes
+# copying data somewhat difficult. This
+# script starts a countdown to give you
+# time to  swap the  wireless  keyboard
+# dongle and the USB stick, then copies
+# over all the important data and  code
+# for adding to the git repository, and
+# creates a complete  backup  including
+# adding files that don't get copied to
+# the GitHub folder.  Files  to  ignore
+# are put in  ~/lobsang/.ignore  and do
+# not get copied to the  GitHub folder.
+#
+# Created Nov 2015 by Finley Watson.
+
+echo    "Will now copy, including child directories, excluding files and folders in ~/lobsang/.ignore:"
+echo -e "\t/home/pi/lobsang/*"
+echo -e "\t/home/pi/sketchbook/*"
+echo -e "\t/home/pi/.bashrc"
+echo
+echo "Please insert Cruzer USB stick."
+
+# Waits for tens seconds before copying, with a visual countdown.
+# Gives the user time to plug in the USB stick.
+for value in `seq 0 10` ; do
+	printf "Time before copy begins: $((10-value))s \r"
+	sleep 1
+done
+
+echo "USB stick should now be plugged in."
+
+printf "Copying...\r"
+
+# Mount the USB stick
+#if ![ -e /media/CRUZER ] ; then
+sudo mkdir /media/CRUZER
+sudo mount /dev/sda1 /media/CRUZER
+#else
+#	echo "USB stick is already mounted."
+#fi
+
+# Just in case the directories don't exist (very unlikely)
+# try to create them. Send stderr to a dump file in /tmp/
+sudo mkdir /media/CRUZER/Lobsang/                   2> /tmp/delete_me.dump
+sudo mkdir /media/CRUZER/Lobsang/github/            2> /tmp/delete_me.dump
+sudo mkdir /media/CRUZER/Lobsang/github/sketchbook/ 2> /tmp/delete_me.dump
+sudo mkdir /media/CRUZER/Lobsang/backup/            2> /tmp/delete_me.dump
+sudo mkdir /media/CRUZER/Lobsang/backup/sketchbook/ #2> /tmp/delete_me.dump
+#sudo rm -r /media/CRUZER/Lobsang/sketchbook/
+
+# Copy all files to be backed up
+cp -r /home/pi/lobsang/*    /media/CRUZER/Lobsang/github
+cp -r /home/pi/sketchbook/* /media/CRUZER/Lobsang/github/sketchbook/
+cp    /home/pi/.bashrc      /media/CRUZER/Lobsang/github/.bashrc
+cp -r /home/pi/lobsang/*    /media/CRUZER/Lobsang/backup/
+cp -r /home/pi/sketchbook/* /media/CRUZER/Lobsang/backup/sketchbook/
+cp    /home/pi/.bashrc      /media/CRUZER/Lobsang/backup/.bashrc
+
+printf "Deleting...\r"
+
+# Delete all files listed in .ignore from the USB stick's GitHub folder.
+# Not all of the files need to be uploaded to GitHub. The backup folder
+# on the USB stick contains every single file though.
+while read path; do
+	rm -r /media/CRUZER/Lobsang/github/$path
+done < .ignore
+
+# Automatically remove the sensitive info from Padlock.py so I'm not
+# telling the world the login keys to access Lobsang! (:-0
+# sed -n makes it quiet, -i changes the file instead of printing to the terminal
+while read key; do
+	echo "Removing key '$key' from USB stick's Padlock.py for GitHub."
+	sed -n -i s/$key/"****"/ /media/CRUZER/Lobsang/github/Padlock.py
+done < .passkeys
+
+echo "Transferred files."
+
+# If user has specified to list the content of /media/CRUZER/Lobsang/github
+# with the arguement "-l" or "--list", then do. Otherwise (auto) don't.
+if [ -n "$1" ] ; then
+	if [ "$1" == "--list" ] || [ "$1" == "-l" ] ; then
+		echo "Contents of /media/CRUZER/Lobsang/github:"
+		ls -A --color=auto /media/CRUZER/Lobsang/github
+	fi
+fi
+
+# Unmount the USB stick
+sudo umount /media/CRUZER
+sudo rmdir /media/CRUZER
+echo "It is safe to remove the USB stick."
+# All finished!
+exit 0

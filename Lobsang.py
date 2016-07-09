@@ -13,7 +13,7 @@
 #        v
 #       (+)
 #
-# Created Jun 2016 by Finley Watson.
+# Created July 2016 by Finley Watson.
 
 import subprocess
 import os
@@ -564,6 +564,17 @@ def core_temperature():
 	'''Returns the temperature of the Pi in degrees C
 	   TODO: make it stop only printing to terminal.'''
 	os.system("sudo /opt/vc/bin/vcgencmd measure_temp")
+
+def file_sync_started():
+	duino.enable()
+	time.sleep(0.1)
+	serial.write("FSS")
+
+def file_sync_finished():
+	serial.write("FSF")
+	time.sleep(0.1)
+	duino.disable()
+	
 
 def begin(splashscreen=True):
 	log.log("Lobsang.begin() called.")
