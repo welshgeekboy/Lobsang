@@ -51,6 +51,7 @@ const int ultrasonic_trigger = 15; // A1
 float distance_cm = 0;
 
 int flash_time = 0;
+int flash_delay = 30;
 
 String command;
 
@@ -109,7 +110,8 @@ void loop()
       step_right_motor_speed();
     }
     // This next line is for an interactive Duino LED- flash behaviour is different when Duino is enabled and disabled. Here (Duino enabled) the flash is a steady on/off.
-    if(flash_time > 30){digitalWrite(led_pin, !digitalRead(led_pin));flash_time = 0;}else{flash_time ++;} // toggle LED
+    // The blink speed increases ($flash_delay decreases) when the Pi is backing up files to a plugged in USB drive.
+    if(flash_time > flash_delay){digitalWrite(led_pin, !digitalRead(led_pin));flash_time = 0;}else{flash_time ++;} // toggle LED
   }
   else // Duino enable pin is HIGH- means Duino is disabled
   {
@@ -124,7 +126,7 @@ void loop()
     }
     freeze_motors();
     // This next line is for an interactive Duino LED- flash behaviour is different when Duino is enabled and disabled. Here (Duino disabled) the flash is a brief blink then a long pause, so as to not be distracting.
-    if(flash_time < 3){digitalWrite(led_pin, HIGH);flash_time ++;}else if(flash_time >= 300){flash_time = 0;}else{digitalWrite(led_pin, LOW);flash_time ++;}
+    if(flash_time < 3){digitalWrite(led_pin, HIGH);flash_time ++;}else if(flash_time >= 500){flash_time = 0;}else{digitalWrite(led_pin, LOW);flash_time ++;}
   }
   delay(constrain((loop_pause - (millis() - start)), 0, loop_pause)); // Run the loop every $loop_pause milliseconds accurately. Calculate elapsed time since this loop run began and deduct from delay time. So hopefully (pseudocode) LOOP_RUN_TIME_IN_MS + THIS_ACTUAL_DELAY_IN_MS = $loop_pause
 }

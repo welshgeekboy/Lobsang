@@ -242,12 +242,22 @@ NEW_COMMAND: // If $command is more than one command in the same string eg "TS12
       Serial.print("\r\n");
       command_length = 3;
     }
-    else if(command.startsWith("BV?")) // BV == Pi asked for 'Battery Voltage' to see if voltage is still safe.
+    else if(command.startsWith("BV?")) // BV == Pi asked for 'Battery Voltage' to see if voltage is still safe. TODO: connect +V through V shifter to Duino so this works!
     {
       battery_voltage = analogRead(A0); // TODO: calculate proper voltage
       Serial.print("BV");
       Serial.print(battery_voltage);
       Serial.print("\r\n");
+      command_length = 3;
+    }
+    else if(command.startsWith("FSS")) // 'File Sync Started' on Pi. Syncing with files on USB stick.
+    {
+      flash_delay = 6;
+      command_length = 3;
+    }
+    else if(command.startsWith("FSF")) // 'File Sync Finished' on Pi. Set LED flash speed back to normal.
+    {
+      flash_delay = 30;
       command_length = 3;
     }
     else if(command.startsWith("SHUTDOWN")) // The Pi has said it is shutting down. The Duino LED will go out when it is safe to switch off the power.
