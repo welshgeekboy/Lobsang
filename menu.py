@@ -42,7 +42,8 @@ menu_options = ["1:                            Line follower",
 		"6:              Shutdown Lobsang",
 		"ESC:                               Exit Menu"]
 
-# Set up pygame 200 x 100 px, but size does not matter as nothing is diplayed on the screen.
+# Set up pygame 200 x 100 px, but size does not matter as nothing is diplayed on the screen (the os function creates a fake screen).
+os.environ["SDL_VIDEODRIVER"] = "dummy"
 pygame.init()
 display = pygame.display.set_mode((200, 100))
 pygame.display.set_caption('Program Select Menu') # This only shows if you are using the GUI, not the terminal.
