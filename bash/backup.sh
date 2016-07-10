@@ -40,10 +40,13 @@ delay=1
 unmount_when_finished=1
 verbose=1
 
+# The file that info is dumped to.
+LOG=/tmp/backup_dump
+
 # A crude way of checking for command line arguments.
 if [ -n "$1" ] ; then
 	if [ "$1" == "-u" ] || [ "$1" == "-update" ] ; then
-		echo "Updating /usr/bin/backup to the latest backup file in /home/pi/lobsang/bash..."
+		echo "Updating /usr/bin/backup to the latest backup file in /home/pi/lobsang/bash/..."
 		sudo cp /home/pi/lobsang/bash/backup.sh /usr/bin/backup
 		exit 0
 	elif [ "$1" == "-e" ] || [ "$1" == "--edit" ] ; then
@@ -60,6 +63,14 @@ if [ -n "$1" ] ; then
 		unmount_when_finished=
 	elif [ "$1" == "-q" ] || [ "$1" == "--quiet" ] ; then
 		verbose=
+	elif [ "$1" == "-n" ] || [ "$1" == "--no-auto" ] ; then
+		sudo mv /etc/udev/rules.d/10-lobsang_auto_sync.rules /etc/udev/rules.d/10-lobsang_auto_sync.disabled
+		sudo udevadm control --reload-rules
+		exit 0
+	elif [ "$1" == "-a" ] || [ "$1" == "--auto" ] ; then
+		sudo mv /etc/udev/rules.d/10-lobsang_auto_sync.disabled /etc/udev/rules.d/10-lobsang_auto_sync.rules
+		sudo udevadm control --reload-rules
+		exit 0
 	fi
 	if [ -n "$2" ] ; then
 		if [ "$2" == "-l" ] || [ "$2" == "-list" ] ; then
@@ -102,72 +113,90 @@ cd /home/pi/lobsang
 sudo python -c "import Lobsang; Lobsang.file_sync_started()"
 cd $dir
 
-sleep 5
+echo "-------------------------------------"
+echo " "
+ps -e >> ~/loggity
 
-# Make sure the mount point is not already taken up and the device to mount is not mounted elsewhere.
-sudo umount /mnt/	2>> /tmp/backup_dump
-sudo umount /dev/sd*1	2>> /tmp/backup_dump
+# Give enough time for the USB drive to have been automatically mounted.
+sleep 10
+
+echo "-------------------------------------"
+echo " "
+ps -e >> ~/loggity
 
 # Clear the dump file of old data.
-echo "File in which all error output from /bin/backup is dumped" > /tmp/backup_dump
+echo "File in which all error output from /bin/backup is dumped" >> $LOG
 
 # Mount the USB stick.
-echo "Trying to mount usb stick..." >> /tmp/backup_dump
-sudo mount /dev/sd*1 /mnt/ 2>> /tmp/backup_dump
+echo "Trying to mount usb stick..."	 >> $LOG
+sudo mount /mnt/			2>> $LOG
+
+echo "Contents of /mnt/ are:" >> $LOG
+sleep 2
+ls /mnt >> $LOG
+echo "Contents end." >> $LOG
+sleep 2
 
 # Just in case the directories don't exist on the drive, try to create them.
-echo "Trying to create directories that should already exist..." >> /tmp/backup_dump
-sudo mkdir /mnt/Lobsang/                   2>> /tmp/backup_dump
-sudo mkdir /mnt/Lobsang/github/            2>> /tmp/backup_dump
-sudo mkdir /mnt/Lobsang/github/sketchbook/ 2>> /tmp/backup_dump
-sudo mkdir /mnt/Lobsang/backup/            2>> /tmp/backup_dump
-sudo mkdir /mnt/Lobsang/backup/sketchbook/ 2>> /tmp/backup_dump
+echo "Trying to create directories that should already exist..."	 >> $LOG
+sudo mkdir /mnt/Lobsang/                 				2>> $LOG
+sudo mkdir /mnt/Lobsang/github/            				2>> $LOG
+sudo mkdir /mnt/Lobsang/github/sketchbook/				2>> $LOG
+sudo mkdir /mnt/Lobsang/backup/		 				2>> $LOG
+sudo mkdir /mnt/Lobsang/backup/sketchbook/				2>> $LOG
 
 # Copy over all the all files to be backed up.
-echo "Trying to copy over all files..." >> /tmp/backup_dump
-cp -r /home/pi/lobsang/*				/mnt/Lobsang/github/		2>> /tmp/backup_dump
-cp -r /home/pi/sketchbook/*				/mnt/Lobsang/github/sketchbook/ 2>> /tmp/backup_dump
-cp    /home/pi/.bashrc					/mnt/Lobsang/github/.bashrc	2>> /tmp/backup_dump
-cp    /etc/udev/rules.d/10-lobsang_auto_sync.rules	/mnt/Lobsang/github/		2>> /tmp/backup_dump
-cp -r /home/pi/lobsang/*				/mnt/Lobsang/backup/		2>> /tmp/backup_dump
-cp -r /home/pi/sketchbook/*				/mnt/Lobsang/backup/sketchbook/	2>> /tmp/backup_dump
-cp    /home/pi/.bashrc					/mnt/Lobsang/backup/.bashrc	2>> /tmp/backup_dump
-cp    /etc/udev/rules.d/10-lobsang_auto_sync.rules	/mnt/Lobsang/backup/		2>> /tmp/backup_dump
+echo "Trying to copy over all files..."							 >> $LOG
+cp -r /home/pi/lobsang/*				/mnt/Lobsang/github/		2>> $LOG
+cp -r /home/pi/sketchbook/*				/mnt/Lobsang/github/sketchbook/ 2>> $LOG
+cp    /home/pi/.bashrc					/mnt/Lobsang/github/.bashrc	2>> $LOG
+cp    /etc/udev/rules.d/10-lobsang_auto_sync.*		/mnt/Lobsang/github/		2>> $LOG
+cp -r /home/pi/lobsang/*				/mnt/Lobsang/backup/		2>> $LOG
+cp -r /home/pi/sketchbook/*				/mnt/Lobsang/backup/sketchbook/	2>> $LOG
+cp    /home/pi/.bashrc					/mnt/Lobsang/backup/.bashrc	2>> $LOG
+cp    /etc/udev/rules.d/10-lobsang_auto_sync.*		/mnt/Lobsang/backup/		2>> $LOG
 
 # Delete all files listed in .ignore from the USB stick's GitHub folder.
 # Not all of the files need to be uploaded to GitHub. The backup folder
 # on the USB stick contains every single file though, excluding *.pyc.
-echo "Trying to delete files in drive's Github folder listed in .ignore..." >> /tmp/backup_dump
+echo "Trying to delete files in drive's GitHub folder listed in .ignore..." >> $LOG
 cd /mnt/Lobsang/github/
 while read path; do
-	rm -r $path 2>> /tmp/backup_dump
+	rm -r $path 2>> $LOG
 done < /home/pi/lobsang/.ignore
 
-echo "Trying to remove drive's *.pyc files from Backup folder..." >> /tmp/backup_dump
+echo "Trying to remove drive's *.pyc files from Backup folder..." >> $LOG
 cd /mnt/Lobsang/backup/
 sudo rm *.pyc
 
 # Automatically remove the sensitive info from Padlock.py so I'm not
 # telling the world the login keys to access Lobsang! I use 'sed -i'
 # to change the file directly instead of eg. printing to the terminal.
-echo "Trying to remove drive's passkeys in Padlock.py in Github folder..." >> /tmp/backup_dump
+echo "Trying to remove drive's passkeys in Padlock.py in GitHub folder..." >> $LOG
 while read key; do
-	sed -i s/$key/****/ /mnt/Lobsang/github/Padlock.py 2>> /tmp/backup_dump
+	sed -i s/$key/****/ /mnt/Lobsang/github/Padlock.py 2>> $LOG
 done < /home/pi/lobsang/.passkeys
 
 # If user has specified to list the content of /mnt/Lobsang/github
 # with the argument "-l" or "--list", then do. Otherwise (auto) don't.
 if [ $list_usb_folder ] ; then
-	echo "Contents of /mnt/Lobsang/github/:" >> /tmp/backup_dump
-	ls /mnt/Lobsang/github/ 2>> /tmp/backup_dump
+	echo "Contents of /mnt/Lobsang/github/:" >> $LOG
+	ls /mnt/Lobsang/github/ 		2>> $LOG
 fi
 
 sleep 1
 
-# Unmount the USB stick
-echo "Trying to unmount..." >> /tmp/backup_dump
-sudo umount /mnt/	   2>> /tmp/backup_dump
+echo "-------------------------------------"
+echo " "
+ps -e >> ~/loggity
 
+fuser -a /mnt/ >> $LOG
+
+# Unmount the USB stick
+echo "Trying to unmount..." >> $LOG
+sudo umount /mnt/	   2>> $LOG
+
+fuser -a /mnt/ >> $LOG
 
 # Backup has finished. Make the Duino LED blink reqularly again to show this.
 dir=$PWD
@@ -175,6 +204,16 @@ cd /home/pi/lobsang
 sudo python -c "import Lobsang; Lobsang.file_sync_finished()"
 cd $dir
 
+echo "-------------------------------------"
+echo " "
+ps -e >> ~/loggity
+
+for i in `seq 1 11` ; do
+	sleep 5
+	echo "Check number $i of 10:"	>> $LOG
+	echo " "			>> $LOG
+	fuser -a /mnt/ >> $LOG
+done
 
 # All finished!
 exit 0

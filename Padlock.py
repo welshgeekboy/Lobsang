@@ -15,8 +15,8 @@
 import os
 
 # The three correct keys- USB stick ID or a 4-digit code, manually entered.
-correct_keys = ["ID 1781:557d SanDisk Corp. Cruzer"]
-correct_passkey = "4198"
+correct_keys = ["ID ****:**** SanDisk Corp. Cruzer"]
+correct_passkey = "****"
 
 unlocked = True
 VERBOSE = False
