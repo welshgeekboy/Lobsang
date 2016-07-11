@@ -1,15 +1,18 @@
-26th Jun 2016:
+26th June 2016:
 Began changelog for Lobsang code.
 Previously, started work on Lobsang in general again. There was a large break since last December. Greatly improved obstacle.py, which attempts to avoid obstacles and drive forward as much as it can. This now works relatively well.
 Began work on neural network- using PyBrain library. Very tentative steps right now. nndist.py learns to stay ~50cm from obstacle using ultrasonic. Neural network is trained to drive forward or back depending on the distance in cm that the ultrasonic reads.
 Created menu.py- clone of piwars_menu.py but it only includes non piwars-specific programs. This is now the standard menu that loads when the Pi boots.
 
-09th Jul 2016:
-Overhauled design of backup script. Before, the user ran the backup script which waited 10s to give you time to swap the keyboard dongle for the USB drive. Then the backup script would blindly attempt to copy files across to the drive. Now, the backup script is linked to udev so when the USB drive is hotplugged udev runs the backup script automatically and copies all the files across without needing human input. Plug the stick in, wait for the copy to complete, then unplug the stick. Easy.
+09th July 2016:
+Overhauled design of backup script. Before, the user ran the backup script which waited 10s to give you time to swap the keyboard dongle for the USB drive. Then the backup script would blindly attempt to copy files across to the drive.
+Now, the backup script is linked to udev so when the USB drive is hotplugged udev runs the backup script automatically and copies all the files across without needing human input. Plug the stick in, wait for the copy to complete, then unplug the stick.
+Doesn't work yet though. 
 
-11th Jul 2016:
+11th July 2016:
 Finished backup script! Now it works as described above, every time the drive is hotplugged, although:
 One problem remains- the filenames are shortened to only 8 chars long, with a max of 3 chars for the extension excluding the full stop. All files and directories are copied in lowercase too for some reason. For example the file "REALLYlongName.html" becomes "reallylo.htm". Data in the files is not modified though.
 Started looking into creating a fake screen for pygame to display (nothing) to. I use pygame to get key presses but the robot has no standard screen (only an OLED) so there's no point showing a pygame screen.
 I copied some code off Average Man Vs Pi's pastebin page with the code for AverageBot with the correct command, but it's not working yet.
 Removed backup option from menu.py - this is automatic now (see above).
+Modified a few files - put a prompt in autorun.py for updating date and time manually (no accurate clock on Pi when powered off) and tidied up a bit.
