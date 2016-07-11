@@ -31,15 +31,14 @@ if not Lobsang.gpio_access:
 
 Lobsang.oled.refresh()
 
-fps = 10 # Number of loop cycles per second.
+fps = 30 # Number of loop cycles per second.
 menu_position = 0 # Oled menu position (0 - 3)
 # All the options that are supported by this script. The spaces make the text appear right-alined (purely aesthetic!).
 menu_options = ["1:                            Line follower",
 		"2:                       Manual control",
 		"3:                          Proximity test",
 		"4:          'Dist' neural network",
-		"5:                      Backup all files",
-		"6:              Shutdown Lobsang",
+		"5:              Shutdown Lobsang",
 		"ESC:                               Exit Menu"]
 
 # Set up pygame 200 x 100 px, but size does not matter as nothing is diplayed on the screen (the os function creates a fake screen).
@@ -104,24 +103,7 @@ while True: # Loop indefinitely, waiting to run the piwars programs.
 				display = pygame.display.set_mode((200, 100))
 			
 			elif event.key == K_5:
-				# Key '5' pressed. Back up files in ~/lobsang/ and ~/sketchbook to a USB stick using program 'backup.sh'.
-				print "Menu: Will now back up files..."
-				pygame.quit()
-				Lobsang.oled.clear_buffer()
-				Lobsang.oled.write("Backup", size=16)
-				Lobsang.oled.write("Please insert USB stick.")
-				Lobsang.oled.refresh()
-				os.system("sudo bash bash/backup.sh")
-				Lobsang.oled.write("Copied data.")
-				Lobsang.oled.refresh()
-				time.sleep(2)
-				print "Menu: Finished backing up files. Continuing running menu."
-				render_menu(menu_position)
-				pygame.init()
-				display = pygame.display.set_mode((200, 100))
-			
-			elif event.key == K_6:
-				# Key '6' pressed. Shuts down the robot by running 'sudo halt' then waiting for 10 secs
+				# Key '5' pressed. Shuts down the robot by running 'sudo halt' then waiting for 10 secs
 				# (before this time is up the program gets stopped as the system shuts down. The delay
 				# is so that this program does not exit back to 'autorun.py' as that prompts a login as the Pi shuts down!).
 				print "Menu: Will now shut down robot. Halting menu."
@@ -137,12 +119,12 @@ while True: # Loop indefinitely, waiting to run the piwars programs.
 			
 			elif event.key == K_DOWN:
 				# Down key pressed. Scroll the menu options down one line.
-				if menu_position < len(menu_options) - 4: # Use len() to make the menu adaptable. Add and remove menu items and this will still scroll right.
+				if menu_position < len(menu_options) - 4: # Use len() to make the menu adaptable. Add and remove menu items and this will still scroll correctly.
 					menu_position += 1
 					render_menu(menu_position)
 			
 			if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
-				# ESC (or close button if in X windows) pressed. Exit this program, 'piwars_menu.py'.
+				# ESC (or close button if in X windows) pressed. Exit this program, 'menu.py'.
 				print "Menu: Halting."
 				Lobsang.duino.disable()
 				Lobsang.oled.clear_buffer()

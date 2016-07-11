@@ -95,13 +95,14 @@ if attempt == Padlock.unlocked:
 	if oled_online:
 		time.sleep(1)
 		Oled.clear()
+	print "Before you do anything else, please set correct time with sudo date -s'yyyy-mm-dd hh:mm' to make file editing times accurate!"
 	print "Auto Run: Exit program."
 else:
 	if oled_online:
 		Oled.write("Login failed!")
 		Oled.refresh(blackout=False)
 	print "Auto Run: Login failed. Sleeping forever..."
-	# ! WARNING !
+	#		      ! WARNING !
 	# This cannot be halted!!! Pi reboot needed to exit loop.
 	# ^Z does not send it to background as keyboard interrupts
 	# do not work at the point when this file is run- only 
@@ -111,5 +112,5 @@ else:
 	while True: # Just keep sleeping forever!
 		try:
 			time.sleep(10000) # <--- The teenage dream
-		except: # An error? Ah well, carry on sleeping! *Infuriates hacker* :-D
+		except:
 			pass

@@ -8,3 +8,9 @@ Sun Jul 10 03:20:18 2016 --> [ERROR] Duino is not responding to 'OK?' query. Can
 Sun Jul 10 05:49:00 2016 --> [ LOG ] Lobsang.begin() called.
 Sun Jul 10 05:49:01 2016 --> [WARN ] Duino did not respond to 'OK?' query. Resetting...
 Sun Jul 10 05:49:02 2016 --> [ LOG ] Duino responded to 'OK?' query. Duino Online.
+Sun Jul 10 06:17:27 2016 --> [ LOG ] Lobsang.begin() called.
+Sun Jul 10 06:17:29 2016 --> [WARN ] Duino did not respond to 'OK?' query. Resetting...
+Sun Jul 10 06:17:30 2016 --> [ LOG ] Duino responded to 'OK?' query. Duino Online.
+Sun Jul 10 06:18:41 2016 --> [ LOG ] Lobsang.begin() called.
+Sun Jul 10 06:18:42 2016 --> [WARN ] Duino did not respond to 'OK?' query. Resetting...
+Sun Jul 10 06:18:43 2016 --> [ LOG ] Duino responded to 'OK?' query. Duino Online.
