@@ -63,18 +63,19 @@ fi
 cd /home/pi/lobsang/
 sudo python -c "import Lobsang; Lobsang.file_sync_started()"
 
-# Give enough time for the USB drive to have been automatically mounted.
-sleep 2
+# Give enough time for the USB drive to show up in /dev/sd*.
+# sleep 1
 
 # Clear the dump file of old data.
-echo "File in which all error output from /bin/backup is dumped"			  > $LOG
+echo "File in which all error output from /usr/bin/backup is dumped"			  > $LOG
 
-# Mount the USB stick.
+# Mount the USB stick. There is a line added in /etc/fstab for the drive.
 echo "Trying to mount usb stick..."	 						 >> $LOG
 sudo mount /mnt/									2>> $LOG
 
+# List the contents of the usb stick's /Lobsang/ directory.
 echo "Contents of /mnt/ are:"								 >> $LOG
-ls /mnt/										 	 >> $LOG
+ls /mnt/									 	 >> $LOG
 echo "Contents end."									 >> $LOG
 
 # Just in case the directories don't exist on the drive, try to create them.
@@ -92,7 +93,6 @@ cp -f -r /home/pi/sketchbook/*				/mnt/Lobsang/github/sketchbook/ 2>> $LOG
 cp -f    /etc/udev/rules.d/10-lobsang_auto_sync.*	/mnt/Lobsang/github/		2>> $LOG
 cp -f -r /home/pi/lobsang/*				/mnt/Lobsang/backup/		2>> $LOG
 cp -f -r /home/pi/sketchbook/*				/mnt/Lobsang/backup/sketchbook/	2>> $LOG
-cp -f    /home/pi/.bashrc				/mnt/Lobsang/backup/.bashrc	2>> $LOG
 cp -f    /etc/udev/rules.d/10-lobsang_auto_sync.*	/mnt/Lobsang/backup/		2>> $LOG
 
 # Delete all files listed in .ignore from the USB stick's GitHub folder.
@@ -104,23 +104,28 @@ while read path; do
 	rm -r $path									2>> $LOG
 done < /home/pi/lobsang/.ignore
 
+# Remov the .pyc compiled python code from the frive - it's not required.
 echo "Trying to remove drive's *.pyc files from Backup folder..."			 >> $LOG
 cd /mnt/Lobsang/backup/
 sudo rm *.pyc
 
 # Automatically remove the sensitive info from Padlock.py so I'm not
-# telling the world the login keys to access Lobsang! I use 'sed -i'
+# telling the world the login keys to access Lobsang! I use  sed -i
 # to change the file directly instead of eg. printing to the terminal.
 echo "Trying to remove drive's passkeys in Padlock.py in GitHub folder..."		 >> $LOG
 while read key; do
 	sed -i s/$key/****/ /mnt/Lobsang/github/Padlock.py				2>> $LOG
 done < /home/pi/lobsang/.passkeys
 
-# Ought to flush cached cp data
-# (I don't know if this is actually necessary).
+# Ought to flush cached cp data (this may not be necessary).
 sync
 
-# Unmount the USB stick
+# List the complete contents of the usb stick's directory /Lobsang/
+echo "Contents of /mnt/Lobsang/ are:"							 >> $LOG
+ls /mnt/Lobsang/*								 	 >> $LOG
+echo "Contents end."									 >> $LOG
+
+# Unmount the USB stick.
 echo "Trying to unmount..."								 >> $LOG
 sudo umount -l /mnt/									2>> $LOG
 echo "Unmounted."									 >> $LOG

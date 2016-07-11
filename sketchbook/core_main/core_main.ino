@@ -1,6 +1,6 @@
-//////
+///////
 // core_main.ino, core_outputs.ino, core_serial.ino - RasPiO Duino Program for motor control, line following
-//////
+///////
 
 // Servo library & initialising head servos
 #include <Servo.h>
