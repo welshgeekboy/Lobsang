@@ -16,3 +16,11 @@ Started looking into creating a fake screen for pygame to display (nothing) to. 
 I copied some code off Average Man Vs Pi's pastebin page with the code for AverageBot with the correct command, but it's not working yet.
 Removed backup option from menu.py - this is automatic now (see above).
 Modified a few files - put a prompt in autorun.py for updating date and time manually (no accurate clock on Pi when powered off) and tidied up a bit.
+
+12th July 2016:
+Question I'd posted on StackExchange concerning the strange file renames (see above) had answers. They say I change how the drive is mounted because if mounted as msdos (as I had it) you get the file renames.
+I changed the /etc/fstab file entry for my drive so it mounts it as vfat now.
+Rename problem is now solved.
+USB auto backup works completely and perfectly.
+I'm considering adding a 'sync' function so I can add new code to a directory on the drive and when data is copied across, the backup script also checks for new code files in /mnt/Lobsang/new/ or similar.
+Removed fstab entry for backup drive. It's not required. The mount command is now entirely within the backup script.

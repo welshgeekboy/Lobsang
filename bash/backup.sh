@@ -63,15 +63,12 @@ fi
 cd /home/pi/lobsang/
 sudo python -c "import Lobsang; Lobsang.file_sync_started()"
 
-# Give enough time for the USB drive to show up in /dev/sd*.
-# sleep 1
-
 # Clear the dump file of old data.
 echo "File in which all error output from /usr/bin/backup is dumped"			  > $LOG
 
-# Mount the USB stick. There is a line added in /etc/fstab for the drive.
+# Mount the USB stick called FORCE on /mnt/ .
 echo "Trying to mount usb stick..."	 						 >> $LOG
-sudo mount /mnt/									2>> $LOG
+sudo mount -t vfat LABEL=FORCE /mnt/							2>> $LOG
 
 # List the contents of the usb stick's /Lobsang/ directory.
 echo "Contents of /mnt/ are:"								 >> $LOG
