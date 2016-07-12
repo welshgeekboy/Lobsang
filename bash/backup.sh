@@ -70,11 +70,6 @@ echo "File in which all error output from /usr/bin/backup is dumped"			  > $LOG
 echo "Trying to mount usb stick..."	 						 >> $LOG
 sudo mount -t vfat LABEL=FORCE /mnt/							2>> $LOG
 
-# List the contents of the usb stick's /Lobsang/ directory.
-echo "Contents of /mnt/ are:"								 >> $LOG
-ls /mnt/									 	 >> $LOG
-echo "Contents end."									 >> $LOG
-
 # Just in case the directories don't exist on the drive, try to create them.
 echo "Trying to create directories that should already exist..."			 >> $LOG
 sudo mkdir /mnt/Lobsang/								2>> $LOG
@@ -82,15 +77,16 @@ sudo mkdir /mnt/Lobsang/github/								2>> $LOG
 sudo mkdir /mnt/Lobsang/github/sketchbook/						2>> $LOG
 sudo mkdir /mnt/Lobsang/backup/		 						2>> $LOG
 sudo mkdir /mnt/Lobsang/backup/sketchbook/						2>> $LOG
+sudo mkdir /mnt/Lobsang/install/							2>> $LOG
 
 # Copy over all the files to be backed up.
 echo "Trying to copy over all files..."							 >> $LOG
-cp -f -r /home/pi/lobsang/*				/mnt/Lobsang/github/		2>> $LOG
-cp -f -r /home/pi/sketchbook/*				/mnt/Lobsang/github/sketchbook/ 2>> $LOG
-cp -f    /etc/udev/rules.d/10-lobsang_auto_sync.*	/mnt/Lobsang/github/		2>> $LOG
-cp -f -r /home/pi/lobsang/*				/mnt/Lobsang/backup/		2>> $LOG
-cp -f -r /home/pi/sketchbook/*				/mnt/Lobsang/backup/sketchbook/	2>> $LOG
-cp -f    /etc/udev/rules.d/10-lobsang_auto_sync.*	/mnt/Lobsang/backup/		2>> $LOG
+cp -fr /home/pi/lobsang/*				/mnt/Lobsang/github/		2>> $LOG
+cp -fr /home/pi/sketchbook/*				/mnt/Lobsang/github/sketchbook/ 2>> $LOG
+cp -f  /etc/udev/rules.d/10-lobsang_auto_sync.*		/mnt/Lobsang/github/		2>> $LOG
+cp -fr /home/pi/lobsang/*				/mnt/Lobsang/backup/		2>> $LOG
+cp -fr /home/pi/sketchbook/*				/mnt/Lobsang/backup/sketchbook/	2>> $LOG
+cp -f  /etc/udev/rules.d/10-lobsang_auto_sync.*		/mnt/Lobsang/backup/		2>> $LOG
 
 # Delete all files listed in .ignore from the USB stick's GitHub folder.
 # Not all of the files need to be uploaded to GitHub. The backup folder
@@ -101,7 +97,7 @@ while read path; do
 	rm -r $path									2>> $LOG
 done < /home/pi/lobsang/.ignore
 
-# Remov the .pyc compiled python code from the frive - it's not required.
+# Remove the .pyc compiled python code from the frive - it's not required.
 echo "Trying to remove drive's *.pyc files from Backup folder..."			 >> $LOG
 cd /mnt/Lobsang/backup/
 sudo rm *.pyc
@@ -117,6 +113,10 @@ done < /home/pi/lobsang/.passkeys
 # Ought to flush cached cp data (this may not be necessary).
 sync
 
+# Move any files in  /mnt/Lobsang/install/  to  /home/pi/lobsang/
+# but if there is a pre-existing file then back that one up first.
+sudo mv --backup=simple /mnt/Lobsang/install/* /home/pi/lobsang/			2>> $LOG
+
 # List the complete contents of the usb stick's directory /Lobsang/
 echo "Contents of /mnt/Lobsang/ are:"							 >> $LOG
 ls /mnt/Lobsang/*								 	 >> $LOG
@@ -131,5 +131,4 @@ echo "Unmounted."									 >> $LOG
 cd /home/pi/lobsang/
 sudo python -c "import Lobsang; Lobsang.file_sync_finished()"
 
-# All finished!
 exit 0

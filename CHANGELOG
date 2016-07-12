@@ -19,8 +19,11 @@ Modified a few files - put a prompt in autorun.py for updating date and time man
 
 12th July 2016:
 Question I'd posted on StackExchange concerning the strange file renames (see above) had answers. They say I change how the drive is mounted because if mounted as msdos (as I had it) you get the file renames.
-I changed the /etc/fstab file entry for my drive so it mounts it as vfat now.
-Rename problem is now solved.
+I changed the /etc/fstab file entry for my drive so it mounts it as vfat (FAT32) now.
+USB backup renames files problem is now solved.
 USB auto backup works completely and perfectly.
 I'm considering adding a 'sync' function so I can add new code to a directory on the drive and when data is copied across, the backup script also checks for new code files in /mnt/Lobsang/new/ or similar.
 Removed fstab entry for backup drive. It's not required. The mount command is now entirely within the backup script.
+Added install new code function in backup.sh- now the script looks in the directory  Lobsang/install/  for any files or directories and moves them to  /home/pi/lobsang/ . Any pre-existing files on the Pi are backed up first.
+Install new code function is still in infancy- it works ok, but may need to become more robust.
+Renamed backup.sh as synchronise.sh
