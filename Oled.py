@@ -57,7 +57,7 @@ def slide_up(speed):
 		command(i)
 		time.sleep(speed / 64.0)
 
-def set_cursor(x, y):
+def set_cursor((x, y)):
 	'''Set cursor position.'''
 	m_col = x + 2
 	m_row = y
@@ -67,9 +67,7 @@ def set_cursor(x, y):
 
 def clear():
 	'''Clears buffer and screen.'''
-	global buffer, old_cursor_line
-	old_cursor_line = 0
-	draw.rectangle((0,0,127,63), outline=0, fill=0) # draw black rectangle over whole buffer image
+	clear_buffer()
 	refresh()
 
 def clear_buffer():
@@ -84,7 +82,7 @@ def refresh(blackout=True):
 	temp_buffer = [] # to store 32 bytes temporarily
 	if blackout: command(off) # have a blank (off) screen while it is updated, for smoother transition
 	for page in range(8): # for each (128x8) page:
-		set_cursor(0, page) # go to beginning of line
+		set_cursor((0, page)) # go to beginning of line
 		for x in range(128): # for each vertical line of 8 pixels in page:
 			bits = 0 # to store a byte temporarily
 			for bit in [0, 1, 2, 3, 4, 5, 6, 7]: # find each byte of data from buffer to send to oled
@@ -108,6 +106,16 @@ def render(img, pos=(0,0)):
 		img = img.convert("1")
         draw.bitmap(pos, img, 1)
 
+def custom_icon(img_array, pos=(0, 0)):
+	'''Displays a custom icon created in black and white (boolean) from an 2D array on the buffer.'''
+	x = y = 0
+	for i in range(len(img_array)):
+		for j in range(len(img_array[0])):
+			set_pixel(img_array[y][x], pos=(pos[0] + x, pos[1] + y))
+			x += 1
+		x = 0
+		y += 1
+
 def screenshot(name=None):
 	'''Saves buffer to image file.'''
 	if name == None:
@@ -122,24 +130,19 @@ def _stream():
 		if byte == 256:
 			clear()
 		else:
-			 data(byte)
+			data(byte)
 
-def set_pixel((x, y), val):
+def set_pixel(val, pos=(0, 0)):
 	'''Sets single pixel to $val (1 or 0) but does not refresh screen.'''
         global buffer
-        page = int(y) / 8 # which page is the pixel in? 0 to 7
-        page_pos = y % 8 # what's left over after dividing by 8? this is the position of the pixel in the page
-        if val == 1: # if told to set pixel to on
-                buffer[page][x] = 1#buffer[page][x] | (1 << page_pos) # set bit with mask and bitwise OR
-        elif val == 0: # if told to set pixel to off
-                buffer[page][x] = 0#buffer[page][x] & ~(1 << page_pos) # negative mask: all on except bit to unset
+	pixels = buffer.load()
+	pixels[pos[0], pos[1]] = val
 
 def get_pixel((x, y)):
 	'''Gets single pixel value (1 or 0) from buffer (NOT screen!).'''
         global buffer
-        page = int(y) / 8 # which page is the pixel in? 0 to 7
-        page_pos = y % 8 # what's left over after dividing by 8? this is the position of the pixel in the page
-        return(buffer[page][x] & (1 << page_pos))
+	pixels = buffer.load()
+	return pixels[x, y]
 
 def set_font_size(size):
 	'''Sets font size to 8px, 16px or 24px.'''
@@ -162,9 +165,9 @@ def splashscreen():
 	command(on)
 
 def write(string, pos=None, epos=None, size=8):
-	'''Writes a string to the buffer. Can position start of string,\r\n
-	   create (invisible) box to write into (hit right hand \r\n
-	   wall = newline so text stays in box) and set font size.'''
+	'''Writes a string to the buffer. Can position start of string,
+	   create (invisible) box to write into (hit right hand wall
+	   means add newline so text stays in box), and set font size.'''
 	# TODO: This is very messy and unpythonic. Rework it entirely, and make it much better.
 	global font, font_size, font8, font16, font24, old_cursor_line, buffer
 	if size == 16:

@@ -27,3 +27,10 @@ Removed fstab entry for backup drive. It's not required. The mount command is no
 Added install new code function in backup.sh- now the script looks in the directory  Lobsang/install/  for any files or directories and moves them to  /home/pi/lobsang/ . Any pre-existing files on the Pi are backed up first.
 Install new code function is still in infancy- it works ok, but may need to become more robust.
 Renamed backup.sh as synchronise.sh
+
+13th July 2016:
+Massively modified the code in menu.py- you NO LONGER press a number key that refers to a script on the OLED screen (eg 1 == Line follower).
+Now, menu.py has a cursor that is moved by the up and down arrow keys. The command under the cursor is run when you press the return key. It's a more intuitive interface.
+More functionality added to menu.py- there is the option to display and run any and all Python programs within  /home/pi/lobsang/  directory. Selecting an option makes menu.py search the directory for all Python scripts (*.py), exlude my libraries (eg Lobsang.py) and itself, then display the remaining programs on the OLED so the user can search through them and run any of them.
+menu.py is now smaller and more Pythonic with simpler code and more code reused. Very happy with new cursor selection feature.
+Oled.py has one additional function- you can define your own symbols. Feed a 2D array in and some coords and it renders (1/0) to the OLED. This is how the cursor is created in menu.py
