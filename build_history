@@ -2,7 +2,7 @@
 # HISTORY OF WHAT I DID TO CREATE LOBSANG SD CARD FROM GENERIC RASPBIAN WHEEZY IMAGE
 # This file can be run in the terminal to do it all for you!
 #
-# sudo bash ./build_history
+# sudo bash build_history
 
 mkdir ~/lobsang_build_saves
 
@@ -67,4 +67,5 @@ sudo apt-get install python-opencv
 
 echo -e "name lobsangian\r\nlanguage en-gb\r\nlanguage en 4\r\ngender male\r\nphonemes en\r\npitch 150 190" > /usr/lib/arm-linux-gnueabihf/espeak-data/voices/en/lobsang
 
-
+# Installed a Python library that can kill processes, which means I can run a script and halt it whenever I need to from another script.
+sudo apt-get install python-psutils

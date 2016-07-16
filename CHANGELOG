@@ -34,3 +34,7 @@ Now, menu.py has a cursor that is moved by the up and down arrow keys. The comma
 More functionality added to menu.py- there is the option to display and run any and all Python programs within  /home/pi/lobsang/  directory. Selecting an option makes menu.py search the directory for all Python scripts (*.py), exlude my libraries (eg Lobsang.py) and itself, then display the remaining programs on the OLED so the user can search through them and run any of them.
 menu.py is now smaller and more Pythonic with simpler code and more code reused. Very happy with new cursor selection feature.
 Oled.py has one additional function- you can define your own symbols. Feed a 2D array in and some coords and it renders (1/0) to the OLED. This is how the cursor is created in menu.py
+
+16th July 2016:
+Was hoping to find a way of hiding the PyGame screen so the console could always be displayed through HDMI, but after some research I found this is not a feature of PyGame. It is impossible.
+Will look into other methods of catching keyboard input so I can use a less bulky and more specific library (PyGame is for games!).

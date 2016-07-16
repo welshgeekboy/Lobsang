@@ -22,14 +22,6 @@ import os
 import string
 
 Lobsang.oled.write("Starting Menu.")
-# Check if we have access to GPIO ports- was script run with 'sudo'?
-if not Lobsang.gpio_access:
-	Lobsang.oled.write("No GPIO access!")
-	Lobsang.oled.refresh()
-	time.sleep(0.5)	
-	Lobsang.oled.clear()
-	sys.exit() # Exit program.
-
 Lobsang.oled.refresh()
 
 fps = 30 # Number of loop cycles per second.
@@ -70,9 +62,11 @@ cursor_icon =  [[1, 1, 0, 0, 0, 0, 0, 0],
 		[1, 1, 0, 0, 0, 0, 0, 0]]
 
 # Set up pygame 200 x 100 px, but size does not matter as nothing is diplayed on the screen (the os function creates a fake screen).
-os.environ["SDL_VIDEODRIVER"] = "dummy"
+#os.environ["SDL_VIDEODRIVER"] = "dummy"
 pygame.init()
-display = pygame.display.set_mode((200, 100))
+display = pygame.display.set_mode((200, 100), pygame.NOFRAME)
+#pygame.mixer.quit()	# These two are attempts at
+#pygame.display.quit()	# hiding the pygame screen
 pygame.display.set_caption('Program Select Menu') # This only shows if you are using the GUI, not the terminal.
 clock = pygame.time.Clock()
 

@@ -5,13 +5,13 @@
 # into one big,  easy-to-use library.
 #
 # Head servo values: 
-#       (-)
-#        ^
-#        |
-# (+) <--|--> (-) 
-#        |
-#        v
-#       (+)
+#        (-)
+#         ^
+#         |
+# (+) <---|---> (-) 
+#         |
+#         v
+#        (+)
 #
 # Created July 2016 by Finley Watson.
 
@@ -24,6 +24,7 @@ import RPi.GPIO as GPIO
 
 duino_enable_pin = 4 # Pi output BCM pin to stop Duino doing anything. Duino enabled by default.
 
+# Set up GPIO pins and confirm we have GPIO access all in one.
 try:
 	gpio_access = True
 	GPIO.setwarnings(False)
@@ -38,6 +39,10 @@ try:
 	GPIO.output(17, False)
 except RuntimeError:
 	print "Lobsang: Re-run with sudo prefix, access to GPIO denied."
+	gpio_access = False
+	raise SystemExit
+except:
+	print "Lobsang: Error in Lobsang library."
 	gpio_access = False
 	raise SystemExit
 
@@ -625,8 +630,8 @@ def halt():
 	log.log("Halting Lobsang. Raspbian is shutting down.")
 	log.new_log() # If Lobsang halted through this code (it generally does) then create a new logfile.
 	oled.clear_buffer()
-	oled.write("Shutting down Lobsang...", pos=(0,0))
-	oled.write("Wait until Duino light goes out before switching off.", pos=(0, 24))
+	oled.write("Shutdown", size=16)
+	oled.write("Wait ~10s before switching off.", pos=(0, 27))
 	oled.refresh()
 	os.system("sudo halt")
 

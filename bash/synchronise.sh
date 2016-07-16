@@ -62,7 +62,9 @@ if [ -n "$1" ] ; then
 	fi
 fi
 
-# Backup has started. Make the Duino LED blink quickly to show this.
+# Backup has started. Make Lobsang speak and the Duino LED blink quickly to show this.
+espeak -v lobsang -s 170 -a 500 "Synchronising files." &
+
 cd /home/pi/lobsang/
 sudo python -c "import Lobsang; Lobsang.file_sync_started()"
 
@@ -130,7 +132,9 @@ echo "Trying to unmount..."								 >> $LOG
 sudo umount -l /mnt/									2>> $LOG
 echo "Unmounted."									 >> $LOG
 
-# Backup has finished. Make the Duino LED blink reqularly again to show this.
+# Backup has finished. Make Lobsang speak and the Duino LED blink reqularly again to show this.
+espeak -v lobsang -s 170 -a 500 "Synchronise has finished." &
+
 cd /home/pi/lobsang/
 sudo python -c "import Lobsang; Lobsang.file_sync_finished()"
 
