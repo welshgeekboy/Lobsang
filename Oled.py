@@ -160,7 +160,14 @@ def set_font_size(size):
 def splashscreen():
 	command(off)
 	clear_buffer()
-	render("lobsang_beta.bmp", pos=(6, 9))
+	render("lobsang_gamma.png")
+	refresh()
+	command(on)
+
+def show_logo():
+	command(off)
+	clear_buffer()
+	render("logo.png")
 	refresh()
 	command(on)
 

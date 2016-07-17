@@ -1,2 +1,4 @@
-26th Jun 2016 -> finish editing build_history to make it a complete bash script					[ ]
-26th Jun 2016 -> fix usb backup script to stop wiping usb stick (mount error?)					[ ]
+26th Jun 2016 -> finish editing build_history to make it a complete bash script									-> 
+26th Jun 2016 -> fix usb backup script to stop wiping usb stick (mount error?) 									-> 21st Jul 2016
+21st Jul 2016 -> show decorated square 'logo' icon all the time as a screensaver when not running programs					-> 
+

@@ -117,26 +117,21 @@ class Terminalmsg():
 
 class Voice():
 	'''Class for making Lobsang speak. Uses
-	   espeak with customised voices, and
+	   espeak with a customised voice, and
 	   returns immediately, before espeak
 	   has finished talking.'''
 	def __init__(self):
 		'''Runs on class initialisation. Sets
 		   voice variables.'''
-		self.NORMAL = " -v lobsang"
-		self.HIGH = " -v lobsang-high"
-		self.MONO = " -v lobsang-mono"
-		self.DEEP = " -v lobsang-deep"
-		self.CLEAR = " -v lobsang-clear"
-		self.VOICE = self.NORMAL
+		self.VOICE = " -v lobsang"
 		self.SPEED = " -s 170"
-		self.VOLUME = " -a 500"
+		self.VOLUME = " -a 200"
 	
 	def say(self, speech):
 		'''Says $speech with espeak, sends any
 		   stderr to a dumping-file. Returns
 		   immediately (before espeak has finished).'''
-		os.system("espeak"+ self.VOICE + self.SPEED + self.VOLUME +" '"+ str(speech) +" ' 2>> /tmp/espeak_info_and_data_dump &")
+		os.system("espeak"+ self.VOICE + self.SPEED + self.VOLUME +" '"+ str(speech) +" ' 2>> /tmp/espeak_dump &")
 	
 	def volume(self, volume):
 		'''Sets voice volume.'''
@@ -145,15 +140,6 @@ class Voice():
 	def speed(self, speedwpm):
 		'''Sets speed of talking in words per minute.'''
 		self.SPEED = " -s "+ str(speedwpm)
-
-	def voice(self, voice):
-		'''Sets voice to use from selection of
-		   custom predefined voices.'''
-		if voice in (self.NORMAL, self.HIGH, self.MONO, self.DEEP, self.CLEAR):
-			self.VOICE = voice
-		else:
-			print "Wrong voice selected: '%s' Will use normal voice." %voice
-
 
 class Serial():
 	'''Class for serial communication with Duino.'''
@@ -607,13 +593,10 @@ def quit(screensaver=True):
 	head.aim(1430, 1200)
 	head.laser(False)
 	if screensaver:
-		oled.clear_buffer()
-		oled.write("Booted.")
-		oled.refresh()
-		time.sleep(0.2)
+		oled.show_logo()
 	else:
 		oled.clear()
-		time.sleep(0.2)
+	time.sleep(0.2)
 	duino.disable()
 
 def halt():
