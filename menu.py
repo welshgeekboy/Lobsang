@@ -136,12 +136,12 @@ while True: # Loop indefinitely, waiting to run programs or other commands.
 				else:
 					# If the option's command is one for the terminal, run it as one.
 					print "Menu: Running %s..." %string.lower(option_name)
-					pygame.quit() # Halt the pygame window to stop a weird freeze when more than one pygame window opens in the terminal, and so you can see any terminal messages printed by script run below.
+					pygame.quit() # Halt the pygame window because only one pygame window can be open at once, and so you can see any terminal messages printed by script run below.
 					os.system(option_command)
 					print "Menu: Finished running %s. Continuing running menu." %string.lower(option_name)
-					render_menu(menu_position, cursor_position)
 					pygame.init() # After the script has finished, restart the pygame window to continue getting keyboard events.
-					display = pygame.display.set_mode((200, 100))
+					display = pygame.display.set_mode(window_size)
+					render_menu(menu_position, cursor_position)
 			
 			elif event.key == K_UP:
 				# Up key pressed. Scroll the menu options up one line, or the cursor up one line.
