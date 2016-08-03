@@ -82,7 +82,9 @@ if oled_online:
 	Oled.write("You are now at the standard bash terminal. Remember to update the time!")
 	Oled.refresh()
 	time.sleep(1)
-	Oled.clear()
+	Oled.clear_buffer()
+	Oled.render("logo.png", pos=(0, 0))
+	Oled.refresh()
 
 print "Before you do anything else, please set correct time with sudo date -s'yyyy-mm-dd hh:mm' to make file editing times accurate!"
 print "Auto Run: Exit program."
