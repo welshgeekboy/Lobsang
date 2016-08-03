@@ -1,1 +1,4 @@
-Sun Jul 17 02:55:20 2016 --> [BEGIN] New log file started. To review old log files, see ./archive/
+Sun Jul 17 03:52:08 2016 --> [BEGIN] New log file started. To review old log files, see ./archive/
+Wed Aug  3 00:40:26 2016 --> [ LOG ] Lobsang.begin() called.
+Wed Aug  3 00:40:27 2016 --> [WARN ] Duino did not respond to 'OK?' query. Resetting...
+Wed Aug  3 00:40:28 2016 --> [ LOG ] Duino responded to 'OK?' query. Duino Online.

@@ -1,15 +1,15 @@
 #!/usr/bin/env python
-
+#
 # menu.py - A way of calling the different scripts on
 # Lobsang  without  looking  at  a  standard  screen.
 # Displays  info on the oled, and runs scripts.  When
 # the script ends, this menu continues  running. This
 # allows you to run  multiple demos etc. very easily.
-# Use the number keys to run the corresponding script
-# as shown on  the oled, UP  and DOWN  keys to scroll
-# the menu or ESC to exit program.
+# Use the  enter key to run the  selected script that
+# the cursor is beside, shown on the oled.  UP & DOWN
+# keys  scroll the  menu and  cursor  and ESC  exits.
 #
-# Created Jun 2016 by Finley Watson
+# Created Aug 2016 by Finley Watson
 
 print "Menu: Initialising."
 
@@ -17,7 +17,7 @@ import Lobsang
 import time
 import sys
 import pygame
-from pygame.locals import *
+from   pygame.locals import *
 import os
 import string
 
@@ -52,22 +52,21 @@ ignored_files =("menu.py",
 		".Padlock.py")
 
 # The icon that is used to represent the cursor position.
-cursor_icon =  [[1, 1, 0, 0, 0, 0, 0, 0],
-		[1, 1, 1, 1, 0, 0, 0, 0],
-		[1, 1, 1, 1, 1, 1, 0, 0],
-		[1, 1, 1, 1, 1, 1, 1, 1],
-		[1, 1, 1, 1, 1, 1, 1, 1],
-		[1, 1, 1, 1, 1, 1, 0, 0],
-		[1, 1, 1, 1, 0, 0, 0, 0],
-		[1, 1, 0, 0, 0, 0, 0, 0]]
+cursor_icon =  [[1,1,0,0,0,0,0,0],
+		[1,1,1,1,0,0,0,0],
+		[1,1,1,1,1,1,0,0],
+		[1,1,1,1,1,1,1,1],
+		[1,1,1,1,1,1,1,1],
+		[1,1,1,1,1,1,0,0],
+		[1,1,1,1,0,0,0,0],
+		[1,1,0,0,0,0,0,0]]
 
-# Set up pygame 200 x 100 px, but size does not matter as nothing is diplayed on the screen (the os function creates a fake screen).
-#os.environ["SDL_VIDEODRIVER"] = "dummy"
+# Set up pygame and the pygame window for getting keypresses
+# and displaying the OLED buffer on a standard screen too.
 pygame.init()
-display = pygame.display.set_mode((200, 100), pygame.NOFRAME)
-#pygame.mixer.quit()	# These two are attempts at
-#pygame.display.quit()	# hiding the pygame screen
-pygame.display.set_caption('Program Select Menu') # This only shows if you are using the GUI, not the terminal.
+window_size = (480, 240)
+display = pygame.display.set_mode(window_size)
+pygame.display.set_caption('Program Menu') # This shows if you are using X windows, but not in the terminal.
 clock = pygame.time.Clock()
 
 def render_menu(menu_pos, cursor_pos):
@@ -80,6 +79,9 @@ def render_menu(menu_pos, cursor_pos):
 		Lobsang.oled.write(menu_options[0][i], size=8)
 	Lobsang.oled.custom_icon(cursor_icon, pos=(0, cursor_pos * 9 + 22)) # Draw the cursor icon onto the right hand side of the screen.
 	Lobsang.oled.refresh(blackout=False) # Refresh the screen to display the new data but don't blank the screen while it's being updated- this makes transition much smoother.
+	Lobsang.oled.screenshot("current.png")
+	display.blit(pygame.transform.scale(pygame.image.load("current.png"), window_size), (0, 0))
+	pygame.display.update()
 
 def all_programs_options():
 	files_menu_options = [[] , []] 

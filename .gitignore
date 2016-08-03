@@ -5,11 +5,10 @@ rmkeys.sh
 
 drag_race.py
 manual_control.py
-piw2.py
 piwars_menu.py
 skittles_challenge.py
 three_point_turn.py
 .Padlock.py
 
 memories/log/archive/
-Adafruit_SSD1306_-master/
+Adafruit_SSD1306-master/

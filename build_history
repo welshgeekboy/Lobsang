@@ -60,12 +60,14 @@ sudo ./setup.sh
 sudo apt-get install espeak
 sudo apt-get install flite
 
-# Installed what I *think* is required for OpenCV to run with Python
+# Installed what is required for OpenCV to run with Python
 sudo apt-get install python-opencv
 
 # Added Lobsang's voice file to dir /usr/lib/arm-linux-gnueabihf/espeak-data/voices/en/
-
-echo -e "name lobsangian\r\nlanguage en-gb\r\nlanguage en 4\r\ngender male\r\nphonemes en\r\npitch 150 190" > /usr/lib/arm-linux-gnueabihf/espeak-data/voices/en/lobsang
+sudo sh -c 'echo "name lobsangian\r\nlanguage en-gb\r\nlanguage en 4\r\ngender male\r\nphonemes en\r\npitch 150 190" > /usr/lib/arm-linux-gnueabihf/espeak-data/voices/en/lobsang'
 
 # Installed a Python library that can kill processes, which means I can run a script and halt it whenever I need to from another script.
 sudo apt-get install python-psutils
+
+# Made i2c faster so I can get better refresh times on OLED screen (about 8 fps instead of perhaps 1 fps originally! 0.12 secs to redraw OLED screen)
+sudo sh -c 'echo "options i2c_bcm2708 baudrate=2000000\r\n" > /etc/modprobe.d/fast-i2c.conf'

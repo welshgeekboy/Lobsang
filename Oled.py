@@ -119,7 +119,7 @@ def custom_icon(img_array, pos=(0, 0)):
 def screenshot(name=None):
 	'''Saves buffer to image file.'''
 	if name == None:
-		name = "oled_screenshot_"+ str(int(time.time())) +".bmp"
+		name = "oled_screenshot_"+ str(int(time.time())) +".png"
 	buffer.save(name)
 
 def _stream():
