@@ -1,3 +1,5 @@
+I'm probably using the name CHANGLELOG incorrectly, considering the content of this file. But hey, let me play at being a software developer!
+
 26th June 2016:
 Began changelog for Lobsang code.
 Previously, started work on Lobsang in general again. There was a large break since last December. Greatly improved obstacle.py, which attempts to avoid obstacles and drive forward as much as it can. This now works relatively well.
@@ -15,7 +17,7 @@ One problem remains- the filenames are shortened to only 8 chars long, with a ma
 Started looking into creating a fake screen for pygame to display (nothing) to. I use pygame to get key presses but the robot has no standard screen (only an OLED) so there's no point showing a pygame screen.
 I copied some code off Average Man Vs Pi's pastebin page with the code for AverageBot with the correct command, but it's not working yet.
 Removed backup option from menu.py - this is automatic now (see above).
-Modified a few files - put a prompt in autorun.py for updating date and time manually (no accurate clock on Pi when powered off) and tidied up a bit.
+Modified a few files - put a prompt in autorun.py for updating date and time manually (no RTC on Pi so when powered off the time does not change so it gets incorrect immediately) and tidied up a bit.
 
 12th July 2016:
 Question I'd posted on StackExchange concerning the strange file renames (see above) had answers. They say I change how the drive is mounted because if mounted as msdos (as I had it) you get the file renames.
@@ -38,3 +40,11 @@ Oled.py has one additional function- you can define your own symbols. Feed a 2D 
 16th July 2016:
 Was hoping to find a way of hiding the PyGame screen so the console could always be displayed through HDMI, but after some research I found this is not a feature of PyGame. It is impossible.
 Will look into other methods of catching keyboard input so I can use a less bulky and more specific library (PyGame is for games!).
+
+03rd August 2016:
+Decided to make menu.py display the OLED buffer on a standard screen (my HDMIPI for instance). The standard screen shows exactly what is on the OLED when the menu.py script is running. It makes use of the previously black empty window that pygame requires (All I really needed were the keypress event handling software that comes as part of pygame)
+Following some advice I read on the Raspberry Pi forums I have modified build_history so that the "echo 'stuff_to' > file.txt" type code where it sends text to a file actually works now. Beforehand, it gave an error if you did not have permission to modify the file even if you used sudo. So now that works.
+I've bought an Adafruit PiTFT Touch 480x320 screen. It will radically change the interface for the robot. I will not use it on the current chassis however- there is no space.
+It will form the top face of "Micro Lobsang" whom I am calling Elton (Lobsang Two, L2, El two, El to, Elton) whch I have not begun building yet.
+I bought a new PiCamera (old 5MP version) which is now installed on the head. It works fine, but I lost all my opencv code when I corrupted the SD card (I hadn't pushed it to GitHub) so I don't have anything to use it with yet.
+Manual control now has the option to press the right mouse button to take a picture using the PiCamera 'eye' on the head.

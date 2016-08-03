@@ -21,7 +21,7 @@ import sys
 import serial as serial_lib
 import time
 import RPi.GPIO as GPIO
-import 
+#import 
 
 duino_enable_pin = 4 # Pi output BCM pin to stop Duino doing anything. Duino enabled by default.
 
