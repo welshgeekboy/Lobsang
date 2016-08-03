@@ -9,6 +9,5 @@
 # Created Aug 2016 by Finley Watson.
 
 cd /home/pi/lobsang/
-mv .Padlock.py Padlock.py
 sudo python -c "import Lobsang; Lobsang.halt()"
 exit 0
