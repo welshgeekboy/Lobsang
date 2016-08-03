@@ -76,12 +76,13 @@ else: # Duino is offline.
 		Oled.write("Auto Run: Cannot boot Lobsang!")
 		Oled.refresh()
 
-# Runs after piwars_menu.py exits or on 'system not stable' error.
-print "Auto Run: Please login with passkey or USB stick."
+# Runs after_menu.py exits or on 'system not stable' error.
 if oled_online:
 	Oled.clear_buffer()
-	Oled.write("Please login with passkey or USB stick")
+	Oled.write("You are now at the standard bash terminal. Remember to update the time!")
 	Oled.refresh()
+	time.sleep(1)
+	Oled.clear()
 
 print "Before you do anything else, please set correct time with sudo date -s'yyyy-mm-dd hh:mm' to make file editing times accurate!"
 print "Auto Run: Exit program."
