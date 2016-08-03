@@ -106,7 +106,7 @@ try: # Put the main loop in a try statement to catch errors and stop the robot b
 				laser_state = not laser_state
 				Lobsang.head.laser(laser_state)
 			elif mouse_button_status[2]:
-				cam.capture("images/%s.png" %str("Image_"+("_".join(time.asctime().split(" ")))))
+				cam.capture("images/%s.png" %str("Image_"+str(int(time.time()))))
 				cam.capture("current.png", resize=(128, 64))
 				Lobsang.oled.clear_buffer()
 				Lobsang.oled.render("current.png")

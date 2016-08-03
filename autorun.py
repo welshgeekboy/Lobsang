@@ -18,7 +18,6 @@ print "Auto Run: Initialising."
 
 # Import the necessary libraries
 import Oled
-import Padlock
 import random
 import time
 import subprocess
@@ -84,33 +83,5 @@ if oled_online:
 	Oled.write("Please login with passkey or USB stick")
 	Oled.refresh()
 
-# This returns a boolean value, which tells the code if the login was successful.
-attempt = Padlock.attempt_unlock()
-
-if attempt == Padlock.unlocked:
-	if oled_online:
-		Oled.write("Login successful")
-		Oled.refresh(blackout=False)
-	print "Auto Run: System access gained."
-	if oled_online:
-		time.sleep(1)
-		Oled.clear()
-	print "Before you do anything else, please set correct time with sudo date -s'yyyy-mm-dd hh:mm' to make file editing times accurate!"
-	print "Auto Run: Exit program."
-else:
-	if oled_online:
-		Oled.write("Login failed!")
-		Oled.refresh(blackout=False)
-	print "Auto Run: Login failed. Sleeping forever..."
-	#		      ! WARNING !
-	# This cannot be halted!!! Pi reboot needed to exit loop.
-	# ^Z does not send it to background as keyboard interrupts
-	# do not work at the point when this file is run- only 
-	# AFTER user is first given bash console prompt. This runs
-	# just before. If you run this in the terminal then ^Z can
-	# send it to the background, but not terminate it.
-	while True: # Just keep sleeping forever!
-		try:
-			time.sleep(10000) # <--- The teenage dream
-		except:
-			pass
+print "Before you do anything else, please set correct time with sudo date -s'yyyy-mm-dd hh:mm' to make file editing times accurate!"
+print "Auto Run: Exit program."

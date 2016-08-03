@@ -34,7 +34,7 @@
 # anything goes wrong. Each time this script is run, any previous data is
 # overwritten in the log file.
 #
-# Created July 2016 by Finley Watson.
+# Created August 2016 by Finley Watson.
 
 # The file that all info is dumped to.
 LOG=/tmp/synchronise_dump
@@ -63,7 +63,7 @@ if [ -n "$1" ] ; then
 fi
 
 # Backup has started. Make Lobsang speak and the Duino LED blink quickly to show this.
-espeak -v lobsang -s 170 -a 500 "Synchronising files." &
+espeak -v lobsang -s 170 -a 300 "Synchronising files." &
 
 cd /home/pi/lobsang/
 sudo python -c "import Lobsang; Lobsang.file_sync_started()"
@@ -107,14 +107,6 @@ echo "Trying to remove drive's *.pyc files from Backup folder..."			 >> $LOG
 cd /mnt/Lobsang/backup/
 sudo rm *.pyc
 
-# Automatically remove the sensitive info from Padlock.py so I'm not
-# telling the world the login keys to access Lobsang! I use  sed -i
-# to change the file directly instead of eg. printing to the terminal.
-echo "Trying to remove drive's passkeys in Padlock.py in GitHub folder..."		 >> $LOG
-while read key; do
-	sed -i s/$key/****/ /mnt/Lobsang/github/Padlock.py				2>> $LOG
-done < /home/pi/lobsang/.passkeys
-
 # Ought to flush cached cp data (this may not be necessary).
 sync
 
@@ -133,7 +125,7 @@ sudo umount -l /mnt/									2>> $LOG
 echo "Unmounted."									 >> $LOG
 
 # Backup has finished. Make Lobsang speak and the Duino LED blink reqularly again to show this.
-espeak -v lobsang -s 170 -a 500 "Synchronise has finished." &
+espeak -v lobsang -s 170 -a 300 "Synchronise has finished." &
 
 cd /home/pi/lobsang/
 sudo python -c "import Lobsang; Lobsang.file_sync_finished()"
