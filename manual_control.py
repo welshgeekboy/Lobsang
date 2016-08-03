@@ -39,6 +39,9 @@ old_pos = (0, 0)
 
 laser_state = False
 
+rewritten_info = True
+show_camera_feed = False
+
 # Set up pygame
 pygame.init()
 DISPLAYSURF = pygame.display.set_mode((500, 500))
@@ -87,10 +90,8 @@ try: # Put the main loop in a try statement to catch errors and stop the robot b
 					backward = True
 				elif event.key == K_d:
 					right = True
-				#elif event.key == K_t:
-				#	text_to_say = ""
-				#	while letter != K_ESCAPE and letter != K_RETURN:
-				#		
+				elif event.key == K_c:
+					show_camera_feed = not show_camera_feed
 			if event.type == KEYUP:
 				if event.key == K_w:
 					forward = False
@@ -121,8 +122,22 @@ try: # Put the main loop in a try statement to catch errors and stop the robot b
 				pygame.quit()
 				Lobsang.oled.clear()
 				sys.exit()
+		if show_camera_feed:
+			cam.capture("current.jpg", use_video_port=True, resize=(128, 64))
+			Lobsang.oled.clear_buffer()
+			Lobsang.oled.render("current.jpg")
+			Lobsang.oled.refresh(blackout=False)
+			rewritten_info = False
+		elif not rewritten_info:
+			Lobsang.oled.clear_buffer()
+			Lobsang.oled.write("Manual Ctrl", pos=(0, 0), size=16)
+			Lobsang.oled.write("Control with W, A, S, D, ESC keys and mouse.")
+			Lobsang.oled.write("Left click to toggle laser, right to take picture.")
+			Lobsang.oled.refresh()
+			rewritten_info = True
+
 		pos = pygame.mouse.get_pos()
-		if pos != old_pos:#True:#over_difference(3, pos[0], old_pos[0]):
+		if pos != old_pos:
 			headX = 2000 - pos[0] * 2
 			headY = pos[1] * 2 + 1000
 			old_pos = pos
